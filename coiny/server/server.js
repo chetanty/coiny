@@ -25,25 +25,30 @@ async function ggShopping(q) {
         api_key: "8350eade01527f51a9edf4a0056b4aba30a1dd63fec69d0782a312c18c423d77",
         engine: "google",
         q: q,
-        location: "Edmonton, Alberta, Canada",
         google_domain: "google.ca",
         gl: "ca",
         hl: "en",
         tbm: "shop",
-        num: "5"
+        num: "5",
+        nfpr: "1"
       },
       (json) => {
         if (json && json.shopping_results) {
-          // Limit to the first 5 results manually
-          resolve(json.shopping_results.slice(0, 5));
+          // Limit to the first 5 results manually and extract necessary fields
+          const results = json.shopping_results.slice(0, 5).map(item => ({
+            title: item.title,
+            price: item.extracted_price,
+            link: item.product_link,
+            thumbnail: item.thumbnail
+          }));
+          resolve(results);
         } else {
-          reject("Failed to fetch shopping data");
+          resolve([]);
         }
       }
     );
   });
 }
-
 
 async function analyzeCoinImages(base64DataArray) {
   const imageUrls = base64DataArray.map((base64Data) => ({
@@ -59,7 +64,7 @@ async function analyzeCoinImages(base64DataArray) {
         content: [
           {
             type: "text",
-            text: "Analyze these coin images (they are the same coin, front and back images) and provide the country, year, mint, denomination, estimated price in today's market and a fun fact briefly without the heading. Separate each field with a ;",
+            text: "Analyze these coin images (they are the same coin, front and back images) and provide the country, year, mint, denomination, estimated price in today's market and a fun fact briefly without the heading. Separate each field with a ;. Do not include anything else other than the information i asked for, if you don't know, try a guess but keep it briefly",
           },
           ...imageUrls,
         ],

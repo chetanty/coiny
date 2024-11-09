@@ -9,10 +9,6 @@ import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [response, setResponse] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [inputKey, setInputKey] = useState(Date.now());
 
   // Check authentication state
   useEffect(() => {
@@ -27,71 +23,27 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  const handleFileChange = (event) => {
-    const files = Array.from(event.target.files);
-    if (selectedFiles.length + files.length > 2) {
-      alert("You can only upload a maximum of 2 files.");
-      return;
-    }
-    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
-  };
-
-  const handleRemoveFile = (index) => {
-    const newFiles = selectedFiles.filter((_, i) => i !== index);
-    setSelectedFiles(newFiles);
-    setInputKey(Date.now());
-    setInputKey(Date.now());
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (selectedFiles.length === 0) {
-      alert("Please select image files first.");
-      return;
-    }
-    setLoading(true);
-    try {
-      const formData = new FormData();
-      selectedFiles.forEach((file) => formData.append("files", file));
-
-      const res = await fetch("http://localhost:5000/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) throw new Error("Failed to upload files");
-      const data = await res.json();
-      setResponse(data);
-    } catch (error) {
-      console.error("Error uploading files:", error);
-      setResponse({ error: "An error occurred while processing the images." });
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <Router>
       <div className="App">
         {/* Navigation Bar */}
         <nav className="navbar">
-  <h1>Coiny</h1>
-  <div className="nav-buttons">
-    <Link to="/" className="nav-link-button">Home</Link>
-    {isLoggedIn ? (
-      <>
-        <Link to="/collection" className="nav-link-button">Collection</Link>
-        <button onClick={handleLogout} className="nav-link-button">Logout</button>
-      </>
-    ) : (
-      <>
-        <Link to="/register" className="nav-link-button">Register</Link>
-        <Link to="/signin" className="nav-link-button">Sign In</Link>
-      </>
-    )}
-  </div>
-</nav>
-
+          <h1>Coiny</h1>
+          <div className="nav-buttons">
+            <Link to="/" className="nav-link-button">Home</Link>
+            {isLoggedIn ? (
+              <>
+                <Link to="/collection" className="nav-link-button">Collection</Link>
+                <button onClick={handleLogout} className="nav-link-button">Logout</button>
+              </>
+            ) : (
+              <>
+                <Link to="/register" className="nav-link-button">Register</Link>
+                <Link to="/signin" className="nav-link-button">Sign In</Link>
+              </>
+            )}
+          </div>
+        </nav>
 
         <Routes>
           {/* Home Page */}
@@ -217,6 +169,25 @@ function UploadForm() {
               <tr><td>Fun Fact</td><td>{response.funFact}</td></tr>
             </tbody>
           </table>
+          {response.ebayResults && (
+            <div className="ebay-results">
+              <h2>Selling prices</h2>
+              <ul>
+                {response.ebayResults.map((item, index) => (
+                  <li key={index}>
+                    <img src={item.thumbnail} alt={item.title} />
+                    <div>
+                      <strong>{item.title}</strong>
+                      <div>Price: ${item.price}</div>
+                    </div>
+                    <a href={item.link} target="_blank" rel="noopener noreferrer">
+                      View Details
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
     </form>
@@ -224,4 +195,3 @@ function UploadForm() {
 }
 
 export default App;
-
