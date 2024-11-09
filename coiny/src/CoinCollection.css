@@ -1,0 +1,145 @@
+/* Page Layout */
+.collection-page {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 40px;
+  gap: 50px;
+}
+
+.form-container,
+.coin-list-container {
+  background-color: #1c1c1c;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+h2, h3 {
+  font-family: 'Playfair Display', serif;
+  color: #ffd700;
+  margin-bottom: 20px;
+}
+
+/* Form Styling */
+.form-group {
+  margin-bottom: 20px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #121212;
+  color: #ffd700;
+}
+
+button {
+  background-color: #ffd700;
+  color: #121212;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #e6b800;
+}
+
+/* Coin List Styling */
+.coin-list-container {
+  max-width: 500px;
+  width: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #282828;
+  margin-bottom: 15px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.coin-details {
+  font-family: 'Playfair Display', serif;
+  color: #ffd700;
+}
+
+.coin-actions button {
+  margin-left: 10px;
+}
+.collection-page {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 50px 40px;
+  gap: 50px;
+}
+
+.form-container {
+  background-color: #1c1c1c;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  width: 400px;
+}
+
+h2, h3 {
+  font-family: 'Playfair Display', serif;
+  color: #ffd700;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #121212;
+  color: #ffd700;
+}
+
+.coin-list-container {
+  width: 50%;
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #282828;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.coin-details {
+  font-family: 'Playfair Display', serif;
+  color: #ffd700;
+}
+
+.coin-actions button {
+  margin-left: 10px;
+}
