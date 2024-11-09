@@ -22,5 +22,5 @@ export const auth = getAuth(app);
 export const db = getFirestore(app); // Export Firestore instance
 
 // Export Authentication Functions
-export { createUserWithEmailAndPassword, signInWithEmailAndPassword };
+export {  createUserWithEmailAndPassword, signInWithEmailAndPassword };
   
