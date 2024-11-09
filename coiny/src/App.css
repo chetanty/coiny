@@ -176,3 +176,77 @@ button:disabled {
 .styled-table tr:nth-child(even) {
   background-color: #1a1a1a;
 }
+/* Navbar Styles */
+/* Navbar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #282c34;
+  padding: 10px 20px; /* Adjusted padding for overall balance */
+  color: white;
+  z-index: 1000; /* Ensure it stays above other content */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+  margin-right: 20px; /* Add margin to prevent buttons from sticking to the edge */
+}
+
+.nav-buttons button {
+  background-color: #ffd700;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-buttons button:hover {
+  background-color: #e6b800;
+}
+
+/* Add padding to the main content to avoid overlap with the fixed navbar */
+.App-header {
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+/* Navbar Link Button Styles */
+.nav-link-button {
+  background-color: #ffd700; /* Gold color to match the other buttons */
+  color: #121212; /* Dark text for contrast */
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-left: 10px;
+}
+
+.nav-link-button:hover {
+  background-color: #e6b800; /* Darker gold on hover */
+  transform: translateY(-2px);
+}
+
+.nav-link-button:active {
+  background-color: #cc9900; /* Even darker gold on active */
+  transform: translateY(0);
+}
