@@ -2,40 +2,51 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [response, setResponse] = useState({});
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [inputKey, setInputKey] = useState(Date.now()); // Add a key to reset the file input
 
   // Handle file input change
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    const files = Array.from(event.target.files);
+    if (selectedFiles.length + files.length > 2) {
+      alert("You can only upload a maximum of 2 files.");
+      return;
+    }
+    setSelectedFiles(prevFiles => [...prevFiles, ...files]);
+  };
+
+  // Handle file removal
+  const handleRemoveFile = (index) => {
+    const newFiles = selectedFiles.filter((_, i) => i !== index);
+    setSelectedFiles(newFiles);
+    setInputKey(Date.now()); // Reset the file input key
   };
 
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!selectedFile) {
-      alert("Please select an image file first.");
+    if (selectedFiles.length === 0) {
+      alert("Please select image files first.");
       return;
     }
-
     setLoading(true);
     try {
       const formData = new FormData();
-      formData.append("file", selectedFile);
-
+      selectedFiles.forEach((file, index) => {
+        formData.append("files", file);
+      });
       const res = await fetch("http://localhost:5000/upload", {
         method: "POST",
         body: formData,
       });
-
-      if (!res.ok) throw new Error("Failed to upload file");
-
+      if (!res.ok) throw new Error("Failed to upload files");
       const data = await res.json();
       setResponse(data);
     } catch (error) {
-      console.error("Error uploading file:", error);
-      setResponse({ error: "An error occurred while processing the image." });
+      console.error("Error uploading files:", error);
+      setResponse({ error: "An error occurred while processing the images." });
     } finally {
       setLoading(false);
     }
@@ -45,30 +56,45 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Coiny</h1>
-        <p>Upload an image of a coin to retrieve information</p>
-
+        <p>Upload images of coins to retrieve information</p>
         <form onSubmit={handleSubmit}>
           <div className="file-input-container">
             <label htmlFor="file-upload" className="custom-file-button">
-              Choose File
+              Choose Files
             </label>
             <input
+              key={inputKey} // Add the key to reset the file input
               type="file"
               id="file-upload"
               onChange={handleFileChange}
               accept="image/*"
+              multiple
             />
             <span className="file-name">
-              {selectedFile ? selectedFile.name : "No file chosen"}
+              {selectedFiles.length > 0
+                ? `${selectedFiles.length} file(s) chosen`
+                : "No files chosen"}
             </span>
           </div>
-
+          <div className="image-preview-container">
+            {selectedFiles.map((file, index) => (
+              <div key={index} className="image-preview">
+                <button
+                  type="button"
+                  className="remove-button"
+                  onClick={() => handleRemoveFile(index)}
+                >
+                  &times;
+                </button>
+                <img src={URL.createObjectURL(file)} alt={`Preview ${index}`} />
+              </div>
+            ))}
+          </div>
           <button type="submit" disabled={loading}>
-            {loading ? "Processing..." : "Upload Image"}
+            {loading ? "Processing..." : "Upload Images"}
           </button>
         </form>
-
-        {response.country && (
+        {response && (
           <div className="table-container">
             <table className="styled-table">
               <thead>
@@ -93,6 +119,10 @@ function App() {
                 <tr>
                   <td>Denomination</td>
                   <td>{response.denomination}</td>
+                </tr>
+                <tr>
+                  <td>Estimated Price</td>
+                  <td>{response.estimatedPrice}</td>
                 </tr>
                 <tr>
                   <td>Fun Fact</td>
