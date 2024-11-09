@@ -1,38 +1,137 @@
+/* Global Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #121212;
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Header Styles */
+.App-header {
+  background-color: #1c1c1c;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Heading and Text Styles */
+h1 {
+  font-family: 'Playfair Display', serif;
+  color: #ffd700;
+  margin-bottom: 20px;
+}
+
+p {
+  color: #b3b3b3;
+}
+
+/* File Input Styles */
+.file-input-container {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+input[type="file"] {
+  display: none; /* Hide the default file input */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.custom-file-button {
+  background-color: #007bff; /* Blue color */
+  color: #fff;
+  padding: 10px 20px;
+  height: 15px;
+  display: flex;
+  align-items: center; /* Vertically center the text */
+  justify-content: center; /* Horizontally center the text */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+
+}
+
+
+.custom-file-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+.file-name {
+  color: #b3b3b3;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Button Styles */
+button {
+  background-color: #ffd700;
+  color: #121212;
+  font-family: 'Poppins', sans-serif;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+}
+
+button:hover {
+  background-color: #e6b800;
+}
+
+button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+/* Table Styles */
+.table-container {
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #1c1c1c;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 16px;
+  border-bottom: 1px solid #444;
+  color: #ffd700;
+}
+
+.styled-table th {
+  background-color: #282828;
+  font-weight: bold;
+}
+
+.styled-table td {
+  text-align: left;
+}
+
+.styled-table tr:hover {
+  background-color: #333333;
+}
+
+.styled-table tr:nth-child(even) {
+  background-color: #1a1a1a;
 }
