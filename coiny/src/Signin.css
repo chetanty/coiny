@@ -1,0 +1,100 @@
+/* Sign In Container */
+.signin-container {
+  background-color: #1c1c1c;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 100%;
+  margin: 80px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Sign In Form Heading */
+.signin-container h2 {
+  font-family: 'Playfair Display', serif;
+  color: #ffd700;
+  margin-bottom: 30px;
+}
+
+/* Form Group */
+.form-group {
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #b3b3b3;
+  font-family: 'Poppins', sans-serif;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #121212;
+  color: #ffd700;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #ffd700;
+}
+
+/* Submit Button */
+.signin-container button {
+  background-color: #ffd700;
+  color: #121212;
+  font-family: 'Poppins', sans-serif;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.signin-container button:hover {
+  background-color: #e6b800;
+  transform: translateY(-2px);
+}
+
+.signin-container button:active {
+  background-color: #cc9900;
+  transform: translateY(0);
+}
+
+button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+/* Error and Success Messages */
+.error-message {
+  color: red;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 15px;
+}
+
+.success-message {
+  color: green;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 15px;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 480px) {
+  .signin-container {
+    padding: 20px;
+    margin: 60px auto;
+  }
+}
