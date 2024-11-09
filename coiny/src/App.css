@@ -153,6 +153,10 @@ button:disabled {
   overflow: hidden;
 }
 
+.ebay-results {
+  color: yellow;
+}
+
 .styled-table th,
 .styled-table td {
   padding: 16px;

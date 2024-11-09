@@ -40,6 +40,7 @@ function App() {
     const newFiles = selectedFiles.filter((_, i) => i !== index);
     setSelectedFiles(newFiles);
     setInputKey(Date.now());
+    setInputKey(Date.now());
   };
 
   const handleSubmit = async (event) => {
@@ -223,3 +224,4 @@ function UploadForm() {
 }
 
 export default App;
+
