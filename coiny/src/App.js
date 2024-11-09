@@ -121,6 +121,10 @@ function App() {
                   <td>{response.denomination}</td>
                 </tr>
                 <tr>
+                  <td>Estimated Price</td>
+                  <td>{response.estimatedPrice}</td>
+                </tr>
+                <tr>
                   <td>Fun Fact</td>
                   <td>{response.funFact}</td>
                 </tr>

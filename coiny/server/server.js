@@ -23,12 +23,12 @@ async function analyzeCoinImages(base64DataArray) {
   }));
 
   const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+    model: "gpt-4o",
     messages: [
       {
         role: "user",
         content: [
-          { type: "text", text: "Analyze these coin images (they are the same coin, front and back images) and provide the country, year, mint, denomination, and a fun fact. Separate each field with a ;" },
+          { type: "text", text: "Analyze these coin images (they are the same coin, front and back images) and provide the country, year, mint, denomination, estimated price in today's market and a fun fact briefly without the heading. Separate each field with a ;" },
           ...imageUrls,
         ],
       },
@@ -36,9 +36,9 @@ async function analyzeCoinImages(base64DataArray) {
   });
 
   const result = response.choices[0].message.content;
-  const [country, year, mint, denomination, funFact] = result.split(";").map(item => item.trim());
+  const [country, year, mint, denomination, estimatedPrice, funFact] = result.split(";").map(item => item.trim());
 
-  return { country, year, mint, denomination, funFact };
+  return { country, year, mint, denomination, estimatedPrice, funFact };
 }
 
 app.post("/upload", upload.array("files"), async (req, res) => {
