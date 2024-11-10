@@ -24,12 +24,20 @@ function UploadForm({ isLoggedIn }) {
   };
 
   const addFiles = (files) => {
-    if (selectedFiles.length + files.length > 2) {
-      alert("You can only upload a maximum of 2 files.");
+    const imageFiles = files.filter((file) => file.type.startsWith("image/"));
+  
+    if (imageFiles.length + selectedFiles.length > 2) {
+      alert("You can only upload a maximum of 2 image files.");
       return;
     }
-    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
+  
+    if (imageFiles.length !== files.length) {
+      alert("Only image files are allowed.");
+    }
+  
+    setSelectedFiles((prevFiles) => [...prevFiles, ...imageFiles]);
   };
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
