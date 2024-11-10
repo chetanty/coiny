@@ -116,7 +116,7 @@ function CoinCollection() {
 
       {/* Coin Collection Section */}
       <div className="coin-list-container">
-        <h3>Your Coin Collection</h3>
+        <h2>Your Coin Collection</h2>
         <input
           type="text"
           placeholder="Search coins..."
