@@ -11,7 +11,6 @@ import './App.css';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check authentication state
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setIsLoggedIn(!!user);
@@ -47,24 +46,10 @@ function App() {
         </nav>
 
         <Routes>
-          {/* Home Page */}
-          <Route path="/" element={<Home />} />
-
-          {/* Public Routes */}
+          <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/signin" element={<SignIn />} />
-
-          {/* Protected Route for Coin Collection */}
-          <Route
-            path="/collection"
-            element={
-              <ProtectedRoute>
-                <CoinCollection />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Redirect to Home if route not found */}
+          <Route path="/collection" element={<ProtectedRoute><CoinCollection /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
@@ -72,11 +57,12 @@ function App() {
   );
 }
 
-const Home = () => (
+const Home = ({ isLoggedIn }) => (
   <header className="App-header">
-    <p>Upload images of coins to retrieve information</p>
-    <UploadForm />
+    <h2>Upload Coin Images</h2>
+    <UploadForm isLoggedIn={isLoggedIn} />
   </header>
 );
+
 
 export default App;
