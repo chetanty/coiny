@@ -1,23 +1,91 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #121212;
+  color: #ffd700;
+}
+
 /* Page Layout */
 .collection-page {
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
-  padding: 40px;
+  padding: 40px 20px;
   gap: 50px;
 }
 
-/* Shared Container Styles */
+/* Shared Container Styling */
 .form-container,
 .coin-list-container {
   background-color: #1c1c1c;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  width: 400px; /* Set a fixed width for both containers */
-  height: 600px; /* Set a fixed height to ensure both containers are equal */
-  overflow-y: auto; /* Enable scrolling if content exceeds height */
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+/* Form Container */
+.form-container {
+  width: 350px;
+}
+
+/* Coin List Container */
+.coin-list-container {
+  width: 50%;
+  min-height: 400px;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #1c1c1c;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Coiny Button */
+.home-link {
+  text-decoration: none;
+}
+
+.navbar-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  background-color: #1c1c1c;
+  color: #ffd700;
+  padding: 10px 20px;
+  border: 2px solid #ffd700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.navbar-brand:hover {
+  background-color: #ffd700;
+  color: #1c1c1c;
+  transform: translateY(-2px);
+}
+
+/* Navigation Links */
+.nav-link-button {
+  background-color: #ffd700;
+  color: #1c1c1c;
+  font-family: 'Playfair Display', serif;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link-button:hover {
+  background-color: #e6b800;
 }
 
 /* Titles */
@@ -35,32 +103,35 @@ h2, h3 {
 input,
 textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
+  margin-top: 8px;
   border: 1px solid #444;
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: #121212;
   color: #ffd700;
 }
 
+/* Buttons */
 button {
   background-color: #ffd700;
-  color: #121212;
+  color: #1c1c1c;
+  font-family: 'Playfair Display', serif;
   padding: 12px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
   background-color: #e6b800;
 }
 
-/* Search Input Styling */
+/* Search Input */
 .search-input {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 25px; /* Added margin for better spacing */
+  padding: 12px;
+  margin-bottom: 20px;
   border: 1px solid #444;
   border-radius: 6px;
   background-color: #121212;
@@ -71,6 +142,7 @@ button:hover {
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 li {
@@ -78,44 +150,62 @@ li {
   justify-content: space-between;
   align-items: flex-start;
   background-color: #282828;
-  margin-bottom: 15px;
-  padding: 15px;
+  padding: 20px;
   border-radius: 8px;
+  margin-bottom: 15px;
 }
 
 .coin-details {
-  flex-grow: 1;
   font-family: 'Playfair Display', serif;
   color: #ffd700;
+  flex-grow: 1;
 }
 
-/* Edit and Delete Buttons Styling */
 .coin-actions {
   display: flex;
-  flex-direction: column; /* Stacks buttons vertically */
+  flex-direction: column;
   gap: 10px;
 }
 
 .coin-actions button {
   background-color: #28a745;
-  border: none;
-  padding: 10px;
   color: white;
+  padding: 10px;
   border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .coin-actions button:hover {
   background-color: #218838;
 }
 
-.coin-actions button:nth-child(2) {
+.coin-actions button.delete {
   background-color: #dc3545;
 }
 
-.coin-actions button:nth-child(2):hover {
+.coin-actions button.delete:hover {
   background-color: #c82333;
+}
+
+/* File Input and Response */
+.file-input-container {
+  margin-top: 20px;
+}
+
+.response-container {
+  margin-top: 20px;
+}
+
+.add-to-collection-button {
+  margin-top: 20px;
+  background-color: #ffd700;
+  color: #1c1c1c;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-to-collection-button:hover {
+  background-color: #e6b800;
 }
 
 /* Scrollbar Styling */
@@ -133,7 +223,6 @@ li {
 .coin-list-container::-webkit-scrollbar-thumb {
   background-color: #ffd700;
   border-radius: 6px;
-  border: 2px solid #1c1c1c;
 }
 
 .form-container::-webkit-scrollbar-thumb:hover,
