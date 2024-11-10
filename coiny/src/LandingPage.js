@@ -7,9 +7,10 @@ function UploadForm({ isLoggedIn }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isCoinAdded, setIsCoinAdded] = useState(false);
+  const [isDragActive, setIsDragActive] = useState(false);
   const user = auth.currentUser;
   const [inputKey, setInputKey] = useState(Date.now());
-  const [isDragActive, setIsDragActive] = useState(false);
 
   // Function to handle file selection from input
   const handleFileChange = (event) => {
@@ -28,19 +29,18 @@ function UploadForm({ isLoggedIn }) {
   // Add files to the selectedFiles state
   const addFiles = (files) => {
     const imageFiles = files.filter((file) => file.type.startsWith("image/"));
-  
+
     if (imageFiles.length + selectedFiles.length > 2) {
       alert("You can only upload a maximum of 2 image files.");
       return;
     }
-  
+
     if (imageFiles.length !== files.length) {
       alert("Only image files are allowed.");
     }
-  
+
     setSelectedFiles((prevFiles) => [...prevFiles, ...imageFiles]);
   };
-  
 
   // Handle form submission for image upload
   const handleSubmit = async (event) => {
@@ -50,6 +50,7 @@ function UploadForm({ isLoggedIn }) {
       return;
     }
     setLoading(true);
+    setIsCoinAdded(false); // Reset isCoinAdded for new analysis
     try {
       const formData = new FormData();
       selectedFiles.forEach((file) => formData.append("files", file));
@@ -72,7 +73,7 @@ function UploadForm({ isLoggedIn }) {
 
   // Function to handle adding coin to Firestore collection
   const handleAddToCollection = async () => {
-    if (user && response) {
+    if (user && response && !isCoinAdded) {
       const coinCollectionRef = collection(db, 'users', user.uid, 'coins');
       try {
         await addDoc(coinCollectionRef, {
@@ -84,6 +85,7 @@ function UploadForm({ isLoggedIn }) {
           note: response.funFact || '',
         });
         alert("Coin details added to your collection!");
+        setIsCoinAdded(true); // Disable the button after successful addition
       } catch (error) {
         console.error("Error adding coin to collection:", error);
         alert("Failed to add coin to collection.");
@@ -152,8 +154,8 @@ function UploadForm({ isLoggedIn }) {
               <tr><td>Fun Fact</td><td>{response.funFact}</td></tr>
             </tbody>
           </table>
-          
-          {/* Display eBay results */}
+
+          {/* eBay Results */}
           {response.ebayResults && (
             <div className="ebay-results">
               <h2>Best Prices on Web</h2>
@@ -174,20 +176,20 @@ function UploadForm({ isLoggedIn }) {
             </div>
           )}
 
-{/* Button to add coin details to Firestore */}
-{isLoggedIn && (
-  <button
-    type="button" // Change the button type to "button" to prevent form submission
-    onClick={(event) => {
-      event.preventDefault(); // Prevents the form submission
-      handleAddToCollection();
-    }}
-    className="add-to-collection-button"
-  >
-    Add to Collection
-  </button>
-)}
-
+          {/* Add to Collection Button */}
+          {isLoggedIn && (
+            <button
+              type="button"
+              onClick={(event) => {
+                event.preventDefault();
+                handleAddToCollection();
+              }}
+              className="add-to-collection-button"
+              disabled={isCoinAdded}
+            >
+              {isCoinAdded ? "Added to Collection" : "Add to Collection"}
+            </button>
+          )}
         </div>
       )}
     </form>

@@ -30,6 +30,7 @@ body {
 /* Form Container */
 .form-container {
   width: 350px;
+  overflow-y: hidden; /* Remove vertical scrollbar */
 }
 
 /* Coin List Container */
@@ -139,6 +140,7 @@ button:hover {
 }
 
 /* Coin List Styling */
+/* Coin List Styling */
 ul {
   list-style: none;
   padding: 0;
@@ -147,8 +149,8 @@ ul {
 
 li {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: flex-start; /* Align items to the left */
+  align-items: center;
   background-color: #282828;
   padding: 20px;
   border-radius: 8px;
@@ -159,7 +161,9 @@ li {
   font-family: 'Playfair Display', serif;
   color: #ffd700;
   flex-grow: 1;
+  text-align: left; /* Ensure left alignment */
 }
+
 
 .coin-actions {
   display: flex;
