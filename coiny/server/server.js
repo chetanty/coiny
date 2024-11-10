@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const OpenAI = require("openai");
 const cors = require("cors");
+const { getJson } = require("serpapi");
 require("dotenv").config();
 
 const app = express();
@@ -12,12 +13,45 @@ app.use(cors());
 const upload = multer({ storage: multer.memoryStorage() });
 
 const openai = new OpenAI({
-  apiKey: process.env.REACT_APP_OPENAI_API_KEY,  // Store your OpenAI API key in .env file
-  organization: process.env.REACT_APP_OPENAI_ORG_ID, // Replace with your organization ID
+  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+  organization: process.env.REACT_APP_OPENAI_ORG_ID,
 });
 
+// Update ggShopping function to handle async properly and extract shopping_results
+async function ggShopping(q) {
+  return new Promise((resolve, reject) => {
+    getJson(
+      {
+        api_key: "8350eade01527f51a9edf4a0056b4aba30a1dd63fec69d0782a312c18c423d77",
+        engine: "google",
+        q: q,
+        google_domain: "google.ca",
+        gl: "ca",
+        hl: "en",
+        tbm: "shop",
+        num: "5",
+        nfpr: "1"
+      },
+      (json) => {
+        if (json && json.shopping_results) {
+          // Limit to the first 5 results manually and extract necessary fields
+          const results = json.shopping_results.slice(0, 5).map(item => ({
+            title: item.title,
+            price: item.extracted_price,
+            link: item.product_link,
+            thumbnail: item.thumbnail
+          }));
+          resolve(results);
+        } else {
+          resolve([]);
+        }
+      }
+    );
+  });
+}
+
 async function analyzeCoinImages(base64DataArray) {
-  const imageUrls = base64DataArray.map(base64Data => ({
+  const imageUrls = base64DataArray.map((base64Data) => ({
     type: "image_url",
     image_url: { url: `data:image/jpeg;base64,${base64Data}` },
   }));
@@ -28,7 +62,10 @@ async function analyzeCoinImages(base64DataArray) {
       {
         role: "user",
         content: [
-          { type: "text", text: "Analyze these coin images (they are the same coin, front and back images) and provide the country, year, mint, denomination, estimated price in today's market and a fun fact briefly without the heading. Separate each field with a ;" },
+          {
+            type: "text",
+            text: "Analyze these coin images (they are the same coin, front and back images) and provide the country, year, mint, denomination, estimated price in today's market and a fun fact briefly without the heading. Separate each field with a ;. Do not include anything else other than the information i asked for, if you don't know, try a guess but keep it briefly",
+          },
           ...imageUrls,
         ],
       },
@@ -36,18 +73,40 @@ async function analyzeCoinImages(base64DataArray) {
   });
 
   const result = response.choices[0].message.content;
-  const [country, year, mint, denomination, estimatedPrice, funFact] = result.split(";").map(item => item.trim());
+  const [country, year, mint, denomination, estimatedPrice, funFact] = result
+    .split(";")
+    .map((item) => item.trim());
 
   return { country, year, mint, denomination, estimatedPrice, funFact };
 }
 
+// Make /price route async to await ggShopping response
+app.get("/price", async (req, res) => {
+  try {
+    const price = await ggShopping("1916 canadian penny");
+    res.json(price);
+  } catch (error) {
+    console.error("Error fetching price:", error);
+    res.status(500).json({ error: "An error occurred while fetching the price." });
+  }
+});
+
 app.post("/upload", upload.array("files"), async (req, res) => {
   try {
     const files = req.files;
-    const base64DataArray = files.map(file => file.buffer.toString("base64"));
+    const base64DataArray = files.map((file) => file.buffer.toString("base64"));
     const result = await analyzeCoinImages(base64DataArray);
 
-    res.json(result);
+    // Fetch eBay information for the coin
+    const ebayResults = await ggShopping(`${result.country} ${result.year} ${result.denomination}`);
+
+    // Combine analysis result with eBay results
+    const combinedResult = {
+      ...result,
+      ebayResults,
+    };
+
+    res.json(combinedResult);
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "An error occurred while processing the images." });
