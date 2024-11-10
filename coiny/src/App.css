@@ -354,3 +354,49 @@ button:disabled {
 .ebay-results a:hover {
   text-decoration: underline;
 }
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #1c1c1c;
+  color: #ffd700;
+}
+
+/* Home Button Styling */
+.home-button {
+  text-decoration: none;
+}
+
+.navbar-brand {
+  background-color: #1c1c1c;
+  color: #ffd700;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  background-color: #332f2f;
+  color: #ffd700;
+
+}
+
+/* Navigation Links */
+.nav-link-button {
+  margin-left: 10px;
+  background-color: #ffd700;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link-button:hover {
+  background-color: #e6b800;
+}

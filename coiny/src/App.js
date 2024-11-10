@@ -28,22 +28,24 @@ function App() {
       <div className="App">
         {/* Navigation Bar */}
         <nav className="navbar">
-          <h1>Coiny</h1>
-          <div className="nav-buttons">
-            <Link to="/" className="nav-link-button">Home</Link>
-            {isLoggedIn ? (
-              <>
-                <Link to="/collection" className="nav-link-button">Collection</Link>
-                <button onClick={handleLogout} className="nav-link-button">Logout</button>
-              </>
-            ) : (
-              <>
-                <Link to="/register" className="nav-link-button">Register</Link>
-                <Link to="/signin" className="nav-link-button">Sign In</Link>
-              </>
-            )}
-          </div>
-        </nav>
+  <Link to="/" className="home-button">
+    <button className="navbar-brand">Coiny</button>
+  </Link>
+  <div className="nav-buttons">
+    {isLoggedIn ? (
+      <>
+        <Link to="/collection" className="nav-link-button">Collection</Link>
+        <button onClick={handleLogout} className="nav-link-button">Logout</button>
+      </>
+    ) : (
+      <>
+        <Link to="/register" className="nav-link-button">Register</Link>
+        <Link to="/signin" className="nav-link-button">Sign In</Link>
+      </>
+    )}
+  </div>
+</nav>
+
 
         <Routes>
           <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
