@@ -1,7 +1,7 @@
 import { collection, addDoc } from 'firebase/firestore';
-
 import React, { useState } from 'react';
 import { auth, db } from './firebase.js';
+import './UploadForm.css';
 
 function UploadForm({ isLoggedIn }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -9,14 +9,26 @@ function UploadForm({ isLoggedIn }) {
   const [loading, setLoading] = useState(false);
   const user = auth.currentUser;
   const [inputKey, setInputKey] = useState(Date.now());
+  const [isDragActive, setIsDragActive] = useState(false);
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
+    addFiles(files);
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    setIsDragActive(false);
+    const files = Array.from(event.dataTransfer.files);
+    addFiles(files);
+  };
+
+  const addFiles = (files) => {
     if (selectedFiles.length + files.length > 2) {
       alert("You can only upload a maximum of 2 files.");
       return;
     }
-    setSelectedFiles(files);
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
   };
 
   const handleSubmit = async (event) => {
@@ -63,36 +75,45 @@ function UploadForm({ isLoggedIn }) {
       }
     }
   };
+
   const handleRemoveFile = (index) => {
     const newFiles = selectedFiles.filter((_, i) => i !== index);
     setSelectedFiles(newFiles);
     setInputKey(Date.now());
-    };
+  };
+
   return (
     <form onSubmit={handleSubmit}>
-      <div className="file-input-container">
-        <label htmlFor="file-upload" className="custom-file-button">Choose Files</label>
+      <div
+        className={`file-input-container ${isDragActive ? 'drag-active' : ''}`}
+        onDragOver={(e) => { e.preventDefault(); setIsDragActive(true); }}
+        onDragLeave={() => setIsDragActive(false)}
+        onDrop={handleDrop}
+      >
+        <label htmlFor="file-upload" className="custom-file-button">Upload Files</label>
         <input
           type="file"
           id="file-upload"
           onChange={handleFileChange}
           accept="image/*"
           multiple
+          style={{ display: 'none' }}
         />
         <span className="file-name">
-          {selectedFiles.length > 0 ? `${selectedFiles.length} file(s) chosen` : "No files chosen"}
+          {selectedFiles.length > 0 ? `${selectedFiles.length} file(s) chosen` : "Or drop a file"}
         </span>
       </div>
+
       <div className="image-preview-container">
-          {selectedFiles.map((file, index) => (
-            <div key={index} className="image-preview">
-              <button type="button" className="remove-button" onClick={() => handleRemoveFile(index)}>
-                &times;
-              </button>
-              <img src={URL.createObjectURL(file)} alt={`Preview ${index}`} />
-            </div>
- ))}
-        </div>
+        {selectedFiles.map((file, index) => (
+          <div key={index} className="image-preview">
+            <button type="button" className="remove-button" onClick={() => handleRemoveFile(index)}>
+              &times;
+            </button>
+            <img src={URL.createObjectURL(file)} alt={`Preview ${index}`} />
+          </div>
+        ))}
+      </div>
       <button type="submit" disabled={loading}>
         {loading ? "Processing..." : "Upload Images"}
       </button>

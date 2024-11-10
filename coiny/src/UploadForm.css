@@ -1,0 +1,131 @@
+/* File Input Container */
+.file-input-container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 2px dashed #FFD700; /* Yellow border */
+    border-radius: 8px;
+    text-align: center;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .file-input-container.drag-active {
+    background-color: #fff8db; /* Light yellow background when active */
+    border-color: #ffcc00; /* Darker yellow border */
+  }
+  
+  /* Custom File Button */
+  .custom-file-button {
+    margin-bottom: 10px; /* Space between button and text */
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .custom-file-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* File Name Text */
+  .file-name {
+    font-size: 1em;
+    color: #555;
+    margin-top: 5px;
+  }
+  
+  /* Image Preview Container */
+  .image-preview-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  /* Individual Image Preview */
+  .image-preview {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Preview Image Styling */
+  .image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Remove Button on Image Preview */
+.remove-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 0, 0, 0.8);
+    color: #000; /* Change text color to black */
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  
+  
+  /* Table Container */
+  .table-container {
+    margin-top: 20px;
+    text-align: left;
+  }
+  
+  /* Styled Table */
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1em;
+  }
+  
+  .styled-table td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    color: #333;
+  }
+  
+  /* eBay Results */
+  .ebay-results {
+    margin-top: 20px;
+  }
+  
+  .ebay-results h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .ebay-results ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .ebay-results li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .ebay-results img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+  
