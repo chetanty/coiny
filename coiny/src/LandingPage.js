@@ -132,7 +132,8 @@ function UploadForm({ isLoggedIn }) {
           </table>
           {response.ebayResults && (
             <div className="ebay-results">
-              <h2>Selling Prices</h2>
+              <h2>Best Prices on Web</h2>
+              <br></br>
               <ul>
                 {response.ebayResults.map((item, index) => (
                   <li key={index}>
