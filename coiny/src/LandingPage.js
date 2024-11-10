@@ -114,9 +114,12 @@ function UploadForm({ isLoggedIn }) {
           </div>
         ))}
       </div>
-      <button type="submit" disabled={loading}>
-        {loading ? "Processing..." : "Upload Images"}
-      </button>
+
+      {selectedFiles.length > 0 && (
+        <button type="submit" disabled={loading}>
+          {loading ? "Processing..." : "Analyze"}
+        </button>
+      )}
 
       {response && (
         <div className="table-container">

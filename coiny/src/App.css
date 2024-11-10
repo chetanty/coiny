@@ -15,15 +15,82 @@ body {
   min-height: 100vh;
 }
 
-/* Header Styles */
+/* Navbar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #1c1c1c;
+  color: #ffd700;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.home-button {
+  text-decoration: none;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  color: #ffd700;
+  background-color: #1c1c1c;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  background-color: #332f2f;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+  margin-right: 20px;
+}
+
+/* Navbar Link Button */
+.nav-link-button {
+  background-color: #ffd700;
+  color: #121212;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-left: 10px;
+}
+
+.nav-link-button:hover {
+  background-color: #e6b800;
+  transform: translateY(-2px);
+}
+
+.nav-link-button:active {
+  background-color: #cc9900;
+  transform: translateY(0);
+}
+
+/* Header and Content Styles */
 .App-header {
   background-color: #1c1c1c;
-  padding: 40px;
+  padding: 80px 40px 40px;
+  margin-top: 20px;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Heading and Text Styles */
 h1 {
   font-family: 'Playfair Display', serif;
   color: #ffd700;
@@ -43,6 +110,35 @@ p {
   margin-bottom: 20px;
 }
 
+.custom-file-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+}
+
+.custom-file-button:hover {
+  background-color: #0056b3;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.file-name {
+  color: #b3b3b3;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Image Preview Styles */
 .image-preview-container {
   display: flex;
   justify-content: center;
@@ -79,40 +175,10 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
 }
 
 .remove-button:hover {
   background: rgba(255, 255, 255, 1);
-}
-
-input[type="file"] {
-  display: none; /* Hide the default file input */
-}
-
-.custom-file-button {
-  background-color: #007bff; /* Blue color */
-  color: #fff;
-  padding: 10px 20px;
-  height: 15px;
-  display: flex;
-  align-items: center; /* Vertically center the text */
-  justify-content: center; /* Horizontally center the text */
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-  transition: background-color 0.3s ease;
-  font-size: 15px;
-}
-
-.custom-file-button:hover {
-  background-color: #0056b3; /* Darker shade on hover */
-}
-
-.file-name {
-  color: #b3b3b3;
-  font-family: 'Poppins', sans-serif;
 }
 
 /* Button Styles */
@@ -153,10 +219,6 @@ button:disabled {
   overflow: hidden;
 }
 
-.ebay-results {
-  color: yellow;
-}
-
 .styled-table th,
 .styled-table td {
   padding: 16px;
@@ -180,95 +242,21 @@ button:disabled {
 .styled-table tr:nth-child(even) {
   background-color: #1a1a1a;
 }
-/* Navbar Styles */
-/* Navbar Styles */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #282c34;
-  padding: 10px 20px; /* Adjusted padding for overall balance */
-  color: white;
-  z-index: 1000; /* Ensure it stays above other content */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.navbar h1 {
-  margin: 0;
-  font-size: 24px;
-}
-
-.nav-buttons {
-  display: flex;
-  gap: 10px;
-  margin-right: 20px; /* Add margin to prevent buttons from sticking to the edge */
-}
-
-.nav-buttons button {
-  background-color: #ffd700;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.nav-buttons button:hover {
-  background-color: #e6b800;
-}
-
-/* Add padding to the main content to avoid overlap with the fixed navbar */
-.App-header {
-  padding-top: 80px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-}
-/* Navbar Link Button Styles */
-.nav-link-button {
-  background-color: #ffd700; /* Gold color to match the other buttons */
-  color: #121212; /* Dark text for contrast */
-  padding: 10px 15px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  font-family: 'Poppins', sans-serif;
-  font-size: 15px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-left: 10px;
-}
-
-.nav-link-button:hover {
-  background-color: #e6b800; /* Darker gold on hover */
-  transform: translateY(-2px);
-}
-
-.nav-link-button:active {
-  background-color: #cc9900; /* Even darker gold on active */
-  transform: translateY(0);
-}
 
 /* eBay Results Styling */
 .ebay-results {
-  color: #ffd700; /* Gold color for titles */
-  background-color: #1c1c1c; /* Dark background matching the app theme */
+  color: #ffd700;
+  background-color: #1c1c1c;
   padding: 20px;
   border-radius: 8px;
   margin-top: 20px;
-  width: 80%; /* Center alignment */
+  width: 80%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .ebay-results h2 {
+  font-size: 1.5em;
   color: #ffd700;
-  font-size: 20px;
   margin-bottom: 10px;
   text-align: center;
 }
@@ -276,54 +264,11 @@ button:disabled {
 .ebay-results ul {
   list-style-type: none;
   padding: 0;
-  margin: 0;
-}
-
-.ebay-results li {
-  background-color: #282828;
-  color: #b3b3b3; /* Soft color for text */
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-}
-
-.ebay-results li:hover {
-  background-color: #333333;
-}
-
-.ebay-results li strong {
-  color: #ffd700; /* Gold color for item titles */
-}
-
-.ebay-results li a {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.ebay-results li a:hover {
-  color: #0056b3; /* Darker shade on hover */
-  text-decoration: underline;
-}
-.ebay-results {
-  color: #ffd700;
-  margin-top: 20px;
-}
-
-.ebay-results h2 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-}
-
-.ebay-results ul {
-  list-style-type: none;
-  padding: 0;
 }
 
 .ebay-results li {
   display: flex;
-  align-items: center; /* Vertically align title and price */
+  align-items: center;
   gap: 10px;
   background-color: #1c1c1c;
   padding: 10px;
@@ -338,12 +283,6 @@ button:disabled {
   border-radius: 5px;
 }
 
-.ebay-results strong {
-  font-weight: bold;
-  font-size: 1em;
-  color: #ffd700;
-}
-
 .ebay-results a {
   color: #007bff;
   text-decoration: none;
@@ -352,51 +291,6 @@ button:disabled {
 }
 
 .ebay-results a:hover {
+  color: #0056b3;
   text-decoration: underline;
-}
-/* Navbar Styles */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #1c1c1c;
-  color: #ffd700;
-}
-
-/* Home Button Styling */
-.home-button {
-  text-decoration: none;
-}
-
-.navbar-brand {
-  background-color: #1c1c1c;
-  color: #ffd700;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1.5rem;
-  transition: background-color 0.3s ease;
-}
-
-.navbar-brand:hover {
-  background-color: #332f2f;
-  color: #ffd700;
-
-}
-
-/* Navigation Links */
-.nav-link-button {
-  margin-left: 10px;
-  background-color: #ffd700;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.nav-link-button:hover {
-  background-color: #e6b800;
 }
