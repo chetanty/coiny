@@ -7,15 +7,18 @@ function UploadForm({ isLoggedIn }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isCoinAdded, setIsCoinAdded] = useState(false);
+  const [isDragActive, setIsDragActive] = useState(false);
   const user = auth.currentUser;
   const [inputKey, setInputKey] = useState(Date.now());
-  const [isDragActive, setIsDragActive] = useState(false);
 
+  // Function to handle file selection from input
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
     addFiles(files);
   };
 
+  // Function to handle file drop
   const handleDrop = (event) => {
     event.preventDefault();
     setIsDragActive(false);
@@ -23,22 +26,23 @@ function UploadForm({ isLoggedIn }) {
     addFiles(files);
   };
 
+  // Add files to the selectedFiles state
   const addFiles = (files) => {
     const imageFiles = files.filter((file) => file.type.startsWith("image/"));
-  
+
     if (imageFiles.length + selectedFiles.length > 2) {
       alert("You can only upload a maximum of 2 image files.");
       return;
     }
-  
+
     if (imageFiles.length !== files.length) {
       alert("Only image files are allowed.");
     }
-  
+
     setSelectedFiles((prevFiles) => [...prevFiles, ...imageFiles]);
   };
-  
 
+  // Handle form submission for image upload
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (selectedFiles.length === 0) {
@@ -46,6 +50,7 @@ function UploadForm({ isLoggedIn }) {
       return;
     }
     setLoading(true);
+    setIsCoinAdded(false); // Reset isCoinAdded for new analysis
     try {
       const formData = new FormData();
       selectedFiles.forEach((file) => formData.append("files", file));
@@ -66,17 +71,21 @@ function UploadForm({ isLoggedIn }) {
     }
   };
 
+  // Function to handle adding coin to Firestore collection
   const handleAddToCollection = async () => {
-    if (user && response) {
+    if (user && response && !isCoinAdded) {
       const coinCollectionRef = collection(db, 'users', user.uid, 'coins');
       try {
         await addDoc(coinCollectionRef, {
           country: response.country,
           year: response.year,
           mint: response.mint,
+          denomination: response.denomination,
+          estimatedPrice: response.estimatedPrice,
           note: response.funFact || '',
         });
         alert("Coin details added to your collection!");
+        setIsCoinAdded(true); // Disable the button after successful addition
       } catch (error) {
         console.error("Error adding coin to collection:", error);
         alert("Failed to add coin to collection.");
@@ -84,6 +93,7 @@ function UploadForm({ isLoggedIn }) {
     }
   };
 
+  // Remove a selected file
   const handleRemoveFile = (index) => {
     const newFiles = selectedFiles.filter((_, i) => i !== index);
     setSelectedFiles(newFiles);
@@ -92,6 +102,7 @@ function UploadForm({ isLoggedIn }) {
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* Drag and drop area */}
       <div
         className={`file-input-container ${isDragActive ? 'drag-active' : ''}`}
         onDragOver={(e) => { e.preventDefault(); setIsDragActive(true); }}
@@ -112,6 +123,7 @@ function UploadForm({ isLoggedIn }) {
         </span>
       </div>
 
+      {/* Preview selected images */}
       <div className="image-preview-container">
         {selectedFiles.map((file, index) => (
           <div key={index} className="image-preview">
@@ -129,6 +141,7 @@ function UploadForm({ isLoggedIn }) {
         </button>
       )}
 
+      {/* Display response data and option to add to collection */}
       {response && (
         <div className="table-container">
           <table className="styled-table">
@@ -141,10 +154,11 @@ function UploadForm({ isLoggedIn }) {
               <tr><td>Fun Fact</td><td>{response.funFact}</td></tr>
             </tbody>
           </table>
+
+          {/* eBay Results */}
           {response.ebayResults && (
             <div className="ebay-results">
               <h2>Best Prices on Web</h2>
-              <br></br>
               <ul>
                 {response.ebayResults.map((item, index) => (
                   <li key={index}>
@@ -161,9 +175,19 @@ function UploadForm({ isLoggedIn }) {
               </ul>
             </div>
           )}
+
+          {/* Add to Collection Button */}
           {isLoggedIn && (
-            <button onClick={handleAddToCollection} className="add-to-collection-button">
-              Add to Collection
+            <button
+              type="button"
+              onClick={(event) => {
+                event.preventDefault();
+                handleAddToCollection();
+              }}
+              className="add-to-collection-button"
+              disabled={isCoinAdded}
+            >
+              {isCoinAdded ? "Added to Collection" : "Add to Collection"}
             </button>
           )}
         </div>

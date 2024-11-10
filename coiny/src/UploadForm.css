@@ -1,131 +1,228 @@
 /* File Input Container */
 .file-input-container {
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    border: 2px dashed #FFD700; /* Yellow border */
-    border-radius: 8px;
-    text-align: center;
-    transition: background-color 0.3s, border-color 0.3s;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding: 30px;
+  border: 2px dashed #FFD700;
+  border-radius: 12px;
+  text-align: center;
+  transition: background-color 0.3s, border-color 0.3s;
   
-  .file-input-container.drag-active {
-    background-color: #fff8db; /* Light yellow background when active */
-    border-color: #ffcc00; /* Darker yellow border */
-  }
-  
-  /* Custom File Button */
-  .custom-file-button {
-    margin-bottom: 10px; /* Space between button and text */
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .custom-file-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* File Name Text */
-  .file-name {
-    font-size: 1em;
-    color: #555;
-    margin-top: 5px;
-  }
-  
-  /* Image Preview Container */
-  .image-preview-container {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  /* Individual Image Preview */
-  .image-preview {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Preview Image Styling */
-  .image-preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  /* Remove Button on Image Preview */
+  width: 100%;
+  max-width: 520px; /* Match the table's max-width */
+  background-color: #1c1c1c;
+  font-size: 1.5em;
+}
+
+
+.file-input-container.drag-active {
+  background-color: #fff8db;
+  border-color: #ffcc00;
+}
+
+/* Custom File Button */
+.custom-file-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.5em;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-button:hover {
+  background-color: #0056b3;
+}
+
+/* File Name Text */
+.file-name {
+  color: #b3b3b3;
+  font-size: 1.2em;
+}
+
+/* Image Preview Container */
+.image-preview-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.image-preview {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Remove Button on Image Preview */
 .remove-button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: rgba(255, 0, 0, 0.8);
-    color: #000; /* Change text color to black */
-    border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-  }
-  
-  
-  /* Table Container */
-  .table-container {
-    margin-top: 20px;
-    text-align: left;
-  }
-  
-  /* Styled Table */
-  .styled-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 1em;
-  }
-  
-  .styled-table td {
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    color: #333;
-  }
-  
-  /* eBay Results */
-  .ebay-results {
-    margin-top: 20px;
-  }
-  
-  .ebay-results h2 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
-  
-  .ebay-results ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .ebay-results li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .ebay-results img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-    border-radius: 5px;
-  }
-  
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 0, 0, 0.8);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-button:hover {
+  background: rgba(255, 0, 0, 1);
+}
+
+/* Submit Button */
+button[type="submit"] {
+  background-color: #ffd700;
+  color: #121212;
+  padding: 20px 40px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.5em;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #e6b800;
+}
+
+button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+/* Table Container */
+.table-container {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+}
+
+/* Styled Table */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #1c1c1c;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 1.3em;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 20px;
+  border-bottom: 1px solid #444;
+  color: #ffd700;
+}
+
+.styled-table th {
+  background-color: #282828;
+  font-weight: bold;
+}
+
+.styled-table tr:hover {
+  background-color: #333333;
+}
+
+.styled-table tr:nth-child(even) {
+  background-color: #1a1a1a;
+}
+/* eBay Results Styling */
+.ebay-results {
+  color: #ffd700;
+  background-color: #1c1c1c;
+  padding: 30px;
+  border-radius: 12px;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 600px; /* Match the table's max-width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 1.3em;
+  text-align: left;
+}
+
+.ebay-results h2 {
+  color: #ffd700;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+.ebay-results ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ebay-results li {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #282828;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  color: #ffd700;
+}
+
+.ebay-results img {
+  width: 80px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.ebay-results a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+.ebay-results a:hover {
+  text-decoration: underline;
+}
+.table-container {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 600px; /* Ensure this matches the .ebay-results max-width */
+  text-align: left;
+}
+/* Add to Collection Button */
+.add-to-collection-button {
+  background-color: #ffd700;
+  color: #121212;
+  padding: 20px 40px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.5em;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+width: 100%;}
+
+.add-to-collection-button:hover {
+  background-color: #e6b800;
+}

@@ -4,15 +4,22 @@ body {
   background-color: #121212;
   margin: 0;
   padding: 0;
-}
-
-.App {
-  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   min-height: 100vh;
+}
+
+/* App Container */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: 20px;
 }
 
 /* Navbar Styles */
@@ -38,22 +45,19 @@ body {
 .navbar-brand {
   font-size: 1.5rem;
   color: #ffd700;
-  background-color: #1c1c1c;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  background: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
-
 .navbar-brand:hover {
-  background-color: #332f2f;
-}
+  background-color: #2a2927bd;
+  color: #ffd700;
 
+}
 .nav-buttons {
   display: flex;
   gap: 10px;
-  margin-right: 20px;
+  margin-right: 2%;
 }
 
 /* Navbar Link Button */
@@ -65,64 +69,64 @@ body {
   border-radius: 6px;
   cursor: pointer;
   text-decoration: none;
-  display: inline-block;
-  font-family: 'Poppins', sans-serif;
-  font-size: 15px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-left: 10px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .nav-link-button:hover {
   background-color: #e6b800;
-  transform: translateY(-2px);
 }
 
-.nav-link-button:active {
-  background-color: #cc9900;
-  transform: translateY(0);
-}
-
-/* Header and Content Styles */
-.App-header {
-  background-color: #1c1c1c;
-  padding: 80px 40px 40px;
-  margin-top: 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
+/* Header and Content */
 h1 {
   font-family: 'Playfair Display', serif;
   color: #ffd700;
   margin-bottom: 20px;
 }
 
-p {
-  color: #b3b3b3;
+/* Header and Content Styles */
+.App-header {
+  padding-top: 120px; /* Increased padding to prevent overlap with navbar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 }
 
+.coiny-logo {
+  width: 600px; /* Adjust width as needed */
+  margin-bottom: 20px;
+  margin-left: 5px;
+}
+
+
+/* File Input Styles */
 /* File Input Styles */
 .file-input-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 15px;
   margin-bottom: 20px;
+  margin-left: 12px; /* Shift container to the right */
+
+
+  width: 600px;
+
+  
 }
 
 .custom-file-button {
   background-color: #007bff;
   color: #fff;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 15px 30px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
   transition: background-color 0.3s ease;
-  font-size: 15px;
+  
 }
 
 .custom-file-button:hover {
@@ -135,24 +139,23 @@ input[type="file"] {
 
 .file-name {
   color: #b3b3b3;
-  font-family: 'Poppins', sans-serif;
 }
 
 /* Image Preview Styles */
 .image-preview-container {
   display: flex;
+  gap: 20px;
   justify-content: center;
-  gap: 10px;
   margin-bottom: 20px;
 }
 
 .image-preview {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   overflow: hidden;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 
 .image-preview img {
@@ -163,35 +166,39 @@ input[type="file"] {
 
 .remove-button {
   position: absolute;
-  top: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.7);
+  top: 5px;
+  right: 5px;
+  background: #3a3202;
+  color: #fff;
   border: none;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 16px;
+  border-radius: 50%; /* Ensure it is perfectly round */
+  width: 30px;
+  height: 30px;
+  line-height: 30px; /* Ensure the text is vertically centered */
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0; /* Remove any padding */
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box; /* Ensure borders do not affect size */
 }
 
 .remove-button:hover {
-  background: rgba(255, 255, 255, 1);
+  background-color: #5a4b07; /* Lighter shade on hover */
 }
 
 /* Button Styles */
 button {
   background-color: #ffd700;
   color: #121212;
-  font-family: 'Poppins', sans-serif;
-  padding: 10px 20px;
+  padding: 15px 30px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 1.2rem;
   transition: background-color 0.3s ease;
-  font-size: 15px;
 }
 
 button:hover {
@@ -206,17 +213,15 @@ button:disabled {
 /* Table Styles */
 .table-container {
   width: 100%;
+  max-width: 600px;
   margin-top: 30px;
-  display: flex;
-  justify-content: center;
 }
 
 .styled-table {
   width: 100%;
   border-collapse: collapse;
   background-color: #1c1c1c;
-  border-radius: 12px 12px 0 0;
-  overflow: hidden;
+  border-radius: 12px;
 }
 
 .styled-table th,
@@ -229,10 +234,6 @@ button:disabled {
 .styled-table th {
   background-color: #282828;
   font-weight: bold;
-}
-
-.styled-table td {
-  text-align: left;
 }
 
 .styled-table tr:hover {
@@ -249,48 +250,41 @@ button:disabled {
   background-color: #1c1c1c;
   padding: 20px;
   border-radius: 8px;
-  margin-top: 20px;
-  width: 80%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 560px;
+  margin-top: 30px;
 }
 
 .ebay-results h2 {
-  font-size: 1.5em;
-  color: #ffd700;
-  margin-bottom: 10px;
-  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
 }
 
 .ebay-results ul {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
 }
 
 .ebay-results li {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background-color: #1c1c1c;
-  padding: 10px;
+  gap: 20px;
+  padding: 15px;
+  background-color: #282828;
   border-radius: 8px;
-  margin-bottom: 15px;
-  color: #ffd700;
+  margin-bottom: 20px;
 }
 
 .ebay-results img {
-  width: 50px;
+  width: 60px;
   height: auto;
-  border-radius: 5px;
+  border-radius: 6px;
 }
 
 .ebay-results a {
   color: #007bff;
   text-decoration: none;
-  font-size: 0.9em;
-  margin-left: auto;
 }
 
 .ebay-results a:hover {
   color: #0056b3;
-  text-decoration: underline;
 }
