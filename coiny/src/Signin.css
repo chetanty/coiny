@@ -90,11 +90,186 @@ button:disabled {
   font-family: 'Poppins', sans-serif;
   margin-bottom: 15px;
 }
+/* Coin List Container with Fixed Size and Scrollbar */
+.coin-list-container {
+  width: 50%;
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
 
-/* Adjustments for smaller screens */
-@media (max-width: 480px) {
-  .signin-container {
-    padding: 20px;
-    margin: 60px auto;
-  }
+/* Custom Scrollbar Styling */
+.coin-list-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.coin-list-container::-webkit-scrollbar-track {
+  background: #1c1c1c; /* Matches container background */
+  border-radius: 6px;
+}
+
+.coin-list-container::-webkit-scrollbar-thumb {
+  background-color: #ffd700; /* Gold scrollbar thumb */
+  border-radius: 6px;
+  border: 2px solid #1c1c1c; /* Adds spacing and blends with container */
+}
+
+.coin-list-container::-webkit-scrollbar-thumb:hover {
+  background-color: #e6b800; /* Darker gold on hover */
+}
+
+/* Form Container with Fixed Size */
+.form-container {
+  width: 400px;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #1c1c1c;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom Scrollbar for Form Container */
+.form-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.form-container::-webkit-scrollbar-track {
+  background: #1c1c1c;
+}
+
+.form-container::-webkit-scrollbar-thumb {
+  background-color: #ffd700;
+  border-radius: 6px;
+  border: 2px solid #1c1c1c;
+}
+
+.form-container::-webkit-scrollbar-thumb:hover {
+  background-color: #e6b800;
+}
+
+/* Page Layout */
+.collection-page {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 40px;
+  gap: 50px;
+}
+
+/* Form Container with Fixed Size */
+.form-container {
+  width: 400px;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #1c1c1c;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Coin List Container with Fixed Size */
+.coin-list-container {
+  width: 50%;
+  min-height: 400px; /* Ensures a fixed height even with fewer items */
+  max-height: 600px; /* Limits height if there are many items */
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: height 0.3s ease;
+}
+
+/* Custom Scrollbar Styling */
+.coin-list-container::-webkit-scrollbar,
+.form-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.coin-list-container::-webkit-scrollbar-track,
+.form-container::-webkit-scrollbar-track {
+  background: #1c1c1c;
+}
+
+.coin-list-container::-webkit-scrollbar-thumb,
+.form-container::-webkit-scrollbar-thumb {
+  background-color: #ffd700;
+  border-radius: 6px;
+  border: 2px solid #1c1c1c;
+}
+
+.coin-list-container::-webkit-scrollbar-thumb:hover,
+.form-container::-webkit-scrollbar-thumb:hover {
+  background-color: #e6b800;
+}
+
+/* Search Input Styling */
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 25px; /* Added margin for better spacing */
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #121212;
+  color: #ffd700;
+}
+
+/* Coin List Styling */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #282828;
+  margin-bottom: 15px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Coin Details Styling */
+.coin-details {
+  flex-grow: 1;
+  font-family: 'Playfair Display', serif;
+  color: #ffd700;
+}
+
+/* Edit and Delete Buttons Styling */
+.coin-actions {
+  display: flex;
+  flex-direction: column; /* Stacks buttons vertically */
+  gap: 10px;
+}
+
+.coin-actions button {
+  background-color: #28a745;
+  border: none;
+  padding: 10px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.coin-actions button:hover {
+  background-color: #218838;
+}
+
+.coin-actions button:nth-child(2) {
+  background-color: #dc3545;
+}
+
+.coin-actions button:nth-child(2):hover {
+  background-color: #c82333;
 }

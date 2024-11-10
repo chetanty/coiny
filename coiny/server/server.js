@@ -23,14 +23,15 @@ async function ggShopping(q) {
     getJson(
       {
         api_key: "8350eade01527f51a9edf4a0056b4aba30a1dd63fec69d0782a312c18c423d77",
-        engine: "google",
-        q: q,
-        google_domain: "google.ca",
-        gl: "ca",
-        hl: "en",
-        tbm: "shop",
+        engine: "google_shopping",
+        google_domain: "google.com",
+        q: "1916 canadian penny",
+        shoprs: "CAEYFyoTMTkxNiBjYW5hZGlhbiBwZW5ueTImCBcSHEdpw6E6IHThu6sgdGjhuqVwIMSR4bq_biBjYW8qBBABGAFgAogBAQ",
         num: "5",
-        nfpr: "1"
+        hl: "en",
+        gl: "us",
+        no_cache: "true",
+        direct_link: "true"
       },
       (json) => {
         if (json && json.shopping_results) {

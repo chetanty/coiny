@@ -7,14 +7,20 @@
   gap: 50px;
 }
 
+/* Shared Container Styles */
 .form-container,
 .coin-list-container {
   background-color: #1c1c1c;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  width: 400px; /* Set a fixed width for both containers */
+  height: 600px; /* Set a fixed height to ensure both containers are equal */
+  overflow-y: auto; /* Enable scrolling if content exceeds height */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
+/* Titles */
 h2, h3 {
   font-family: 'Playfair Display', serif;
   color: #ffd700;
@@ -50,76 +56,18 @@ button:hover {
   background-color: #e6b800;
 }
 
-/* Coin List Styling */
-.coin-list-container {
-  max-width: 500px;
-  width: 100%;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #282828;
-  margin-bottom: 15px;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.coin-details {
-  font-family: 'Playfair Display', serif;
-  color: #ffd700;
-}
-
-.coin-actions button {
-  margin-left: 10px;
-}
-.collection-page {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 50px 40px;
-  gap: 50px;
-}
-
-.form-container {
-  background-color: #1c1c1c;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  width: 400px;
-}
-
-h2, h3 {
-  font-family: 'Playfair Display', serif;
-  color: #ffd700;
-}
-
+/* Search Input Styling */
 .search-input {
   width: 100%;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 25px; /* Added margin for better spacing */
   border: 1px solid #444;
   border-radius: 6px;
   background-color: #121212;
   color: #ffd700;
 }
 
-.coin-list-container {
-  width: 50%;
-  max-height: 500px;
-  overflow-y: auto;
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
+/* Coin List Styling */
 ul {
   list-style: none;
   padding: 0;
@@ -128,7 +76,7 @@ ul {
 li {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   background-color: #282828;
   margin-bottom: 15px;
   padding: 15px;
@@ -136,54 +84,59 @@ li {
 }
 
 .coin-details {
+  flex-grow: 1;
   font-family: 'Playfair Display', serif;
   color: #ffd700;
 }
 
-.coin-actions button {
-  margin-left: 10px;
-}
-/* Navbar Styles */
-.navbar {
+/* Edit and Delete Buttons Styling */
+.coin-actions {
   display: flex;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background-color: #1c1c1c;
-  color: #ffd700;
+  flex-direction: column; /* Stacks buttons vertically */
+  gap: 10px;
 }
 
-.nav-link-button {
-  margin-left: 10px;
-  background-color: #ffd700;
-  padding: 10px;
+.coin-actions button {
+  background-color: #28a745;
   border: none;
-  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.nav-link-button:hover {
-  background-color: #e6b800;
+.coin-actions button:hover {
+  background-color: #218838;
 }
 
-/* Form Styles */
-.file-input-container {
-  margin-top: 20px;
+.coin-actions button:nth-child(2) {
+  background-color: #dc3545;
 }
 
-.response-container {
-  margin-top: 20px;
+.coin-actions button:nth-child(2):hover {
+  background-color: #c82333;
 }
 
-.add-to-collection-button {
-  margin-top: 15px;
+/* Scrollbar Styling */
+.form-container::-webkit-scrollbar,
+.coin-list-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.form-container::-webkit-scrollbar-track,
+.coin-list-container::-webkit-scrollbar-track {
+  background: #1c1c1c;
+}
+
+.form-container::-webkit-scrollbar-thumb,
+.coin-list-container::-webkit-scrollbar-thumb {
   background-color: #ffd700;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  border-radius: 6px;
+  border: 2px solid #1c1c1c;
 }
 
-.add-to-collection-button:hover {
+.form-container::-webkit-scrollbar-thumb:hover,
+.coin-list-container::-webkit-scrollbar-thumb:hover {
   background-color: #e6b800;
 }
