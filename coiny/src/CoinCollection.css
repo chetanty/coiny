@@ -143,3 +143,47 @@ li {
 .coin-actions button {
   margin-left: 10px;
 }
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #1c1c1c;
+  color: #ffd700;
+}
+
+.nav-link-button {
+  margin-left: 10px;
+  background-color: #ffd700;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link-button:hover {
+  background-color: #e6b800;
+}
+
+/* Form Styles */
+.file-input-container {
+  margin-top: 20px;
+}
+
+.response-container {
+  margin-top: 20px;
+}
+
+.add-to-collection-button {
+  margin-top: 15px;
+  background-color: #ffd700;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-to-collection-button:hover {
+  background-color: #e6b800;
+}

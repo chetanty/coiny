@@ -4,13 +4,13 @@ import Register from './register.js';
 import SignIn from './Signin.js';
 import CoinCollection from './CoinCollection.js';
 import ProtectedRoute from './ProtectedRoute.js';
-import { auth } from './firebase.js';
+import { auth, db } from './firebase.js';
+import { collection, addDoc } from 'firebase/firestore';
 import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check authentication state
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setIsLoggedIn(!!user);
@@ -46,24 +46,10 @@ function App() {
         </nav>
 
         <Routes>
-          {/* Home Page */}
-          <Route path="/" element={<Home />} />
-
-          {/* Public Routes */}
+          <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/signin" element={<SignIn />} />
-
-          {/* Protected Route for Coin Collection */}
-          <Route
-            path="/collection"
-            element={
-              <ProtectedRoute>
-                <CoinCollection />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Redirect to Home if route not found */}
+          <Route path="/collection" element={<ProtectedRoute><CoinCollection /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
@@ -71,18 +57,18 @@ function App() {
   );
 }
 
-const Home = () => (
+const Home = ({ isLoggedIn }) => (
   <header className="App-header">
-    <p>Upload images of coins to retrieve information</p>
-    <UploadForm />
+    <h2>Upload Coin Images</h2>
+    <UploadForm isLoggedIn={isLoggedIn} />
   </header>
 );
 
-function UploadForm() {
+function UploadForm({ isLoggedIn }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [inputKey, setInputKey] = useState(Date.now());
+  const user = auth.currentUser;
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
@@ -90,13 +76,7 @@ function UploadForm() {
       alert("You can only upload a maximum of 2 files.");
       return;
     }
-    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
-  };
-
-  const handleRemoveFile = (index) => {
-    const newFiles = selectedFiles.filter((_, i) => i !== index);
-    setSelectedFiles(newFiles);
-    setInputKey(Date.now());
+    setSelectedFiles(files);
   };
 
   const handleSubmit = async (event) => {
@@ -126,14 +106,29 @@ function UploadForm() {
     }
   };
 
+  const handleAddToCollection = async () => {
+    if (user && response) {
+      const coinCollectionRef = collection(db, 'users', user.uid, 'coins');
+      try {
+        await addDoc(coinCollectionRef, {
+          country: response.country,
+          year: response.year,
+          mint: response.mint,
+          note: response.funFact || '',
+        });
+        alert("Coin details added to your collection!");
+      } catch (error) {
+        console.error("Error adding coin to collection:", error);
+        alert("Failed to add coin to collection.");
+      }
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="file-input-container">
-        <label htmlFor="file-upload" className="custom-file-button">
-          Choose Files
-        </label>
+        <label htmlFor="file-upload" className="custom-file-button">Choose Files</label>
         <input
-          key={inputKey}
           type="file"
           id="file-upload"
           onChange={handleFileChange}
@@ -144,19 +139,10 @@ function UploadForm() {
           {selectedFiles.length > 0 ? `${selectedFiles.length} file(s) chosen` : "No files chosen"}
         </span>
       </div>
-      <div className="image-preview-container">
-        {selectedFiles.map((file, index) => (
-          <div key={index} className="image-preview">
-            <button type="button" className="remove-button" onClick={() => handleRemoveFile(index)}>
-              &times;
-            </button>
-            <img src={URL.createObjectURL(file)} alt={`Preview ${index}`} />
-          </div>
-        ))}
-      </div>
       <button type="submit" disabled={loading}>
         {loading ? "Processing..." : "Upload Images"}
       </button>
+
       {response && (
         <div className="table-container">
           <table className="styled-table">
@@ -171,7 +157,7 @@ function UploadForm() {
           </table>
           {response.ebayResults && (
             <div className="ebay-results">
-              <h2>Selling prices</h2>
+              <h2>Selling Prices</h2>
               <ul>
                 {response.ebayResults.map((item, index) => (
                   <li key={index}>
@@ -187,6 +173,11 @@ function UploadForm() {
                 ))}
               </ul>
             </div>
+          )}
+          {isLoggedIn && (
+            <button onClick={handleAddToCollection} className="add-to-collection-button">
+              Add to Collection
+            </button>
           )}
         </div>
       )}
