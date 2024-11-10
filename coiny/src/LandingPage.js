@@ -11,11 +11,13 @@ function UploadForm({ isLoggedIn }) {
   const [inputKey, setInputKey] = useState(Date.now());
   const [isDragActive, setIsDragActive] = useState(false);
 
+  // Function to handle file selection from input
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
     addFiles(files);
   };
 
+  // Function to handle file drop
   const handleDrop = (event) => {
     event.preventDefault();
     setIsDragActive(false);
@@ -23,6 +25,7 @@ function UploadForm({ isLoggedIn }) {
     addFiles(files);
   };
 
+  // Add files to the selectedFiles state
   const addFiles = (files) => {
     const imageFiles = files.filter((file) => file.type.startsWith("image/"));
   
@@ -39,6 +42,7 @@ function UploadForm({ isLoggedIn }) {
   };
   
 
+  // Handle form submission for image upload
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (selectedFiles.length === 0) {
@@ -66,6 +70,7 @@ function UploadForm({ isLoggedIn }) {
     }
   };
 
+  // Function to handle adding coin to Firestore collection
   const handleAddToCollection = async () => {
     if (user && response) {
       const coinCollectionRef = collection(db, 'users', user.uid, 'coins');
@@ -74,6 +79,8 @@ function UploadForm({ isLoggedIn }) {
           country: response.country,
           year: response.year,
           mint: response.mint,
+          denomination: response.denomination,
+          estimatedPrice: response.estimatedPrice,
           note: response.funFact || '',
         });
         alert("Coin details added to your collection!");
@@ -84,6 +91,7 @@ function UploadForm({ isLoggedIn }) {
     }
   };
 
+  // Remove a selected file
   const handleRemoveFile = (index) => {
     const newFiles = selectedFiles.filter((_, i) => i !== index);
     setSelectedFiles(newFiles);
@@ -92,6 +100,7 @@ function UploadForm({ isLoggedIn }) {
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* Drag and drop area */}
       <div
         className={`file-input-container ${isDragActive ? 'drag-active' : ''}`}
         onDragOver={(e) => { e.preventDefault(); setIsDragActive(true); }}
@@ -112,6 +121,7 @@ function UploadForm({ isLoggedIn }) {
         </span>
       </div>
 
+      {/* Preview selected images */}
       <div className="image-preview-container">
         {selectedFiles.map((file, index) => (
           <div key={index} className="image-preview">
@@ -129,6 +139,7 @@ function UploadForm({ isLoggedIn }) {
         </button>
       )}
 
+      {/* Display response data and option to add to collection */}
       {response && (
         <div className="table-container">
           <table className="styled-table">
@@ -141,10 +152,11 @@ function UploadForm({ isLoggedIn }) {
               <tr><td>Fun Fact</td><td>{response.funFact}</td></tr>
             </tbody>
           </table>
+          
+          {/* Display eBay results */}
           {response.ebayResults && (
             <div className="ebay-results">
               <h2>Best Prices on Web</h2>
-              <br></br>
               <ul>
                 {response.ebayResults.map((item, index) => (
                   <li key={index}>
@@ -161,11 +173,21 @@ function UploadForm({ isLoggedIn }) {
               </ul>
             </div>
           )}
-          {isLoggedIn && (
-            <button onClick={handleAddToCollection} className="add-to-collection-button">
-              Add to Collection
-            </button>
-          )}
+
+{/* Button to add coin details to Firestore */}
+{isLoggedIn && (
+  <button
+    type="button" // Change the button type to "button" to prevent form submission
+    onClick={(event) => {
+      event.preventDefault(); // Prevents the form submission
+      handleAddToCollection();
+    }}
+    className="add-to-collection-button"
+  >
+    Add to Collection
+  </button>
+)}
+
         </div>
       )}
     </form>

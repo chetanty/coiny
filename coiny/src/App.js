@@ -34,7 +34,7 @@ function App() {
   <div className="nav-buttons">
     {isLoggedIn ? (
       <>
-        <Link to="/collection" className="nav-link-button">Collection</Link>
+        <Link to="/collection" className="nav-link-button">My Collection</Link>
         <button onClick={handleLogout} className="nav-link-button">Logout</button>
       </>
     ) : (
@@ -61,7 +61,8 @@ function App() {
 
 const Home = ({ isLoggedIn }) => (
   <header className="App-header">
-    <h2>Upload Coin Images</h2>
+    {/* Add the image below the heading */}
+    <img src={`${process.env.PUBLIC_URL}/coiny.png`} alt="Coiny Logo" className="coiny-logo" />
     <UploadForm isLoggedIn={isLoggedIn} />
   </header>
 );
