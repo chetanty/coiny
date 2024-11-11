@@ -7,7 +7,7 @@ A project by Chetan Tyagi and David Pham
 The project was inspired by the hobby of coin collecting and was made as a solution to the problem of identifying coins, both local and international.
 
 # What it does
-It uses AI to visually recognize coins from its huge database, giveing relevant descriptions, and allowing us to create a collection, which works with the AI detector.
+It uses AI to visually recognize coins from its huge database, giving relevant descriptions, and allowing us to create a collection, which works with the AI detector.
 
 # How we built it
 We built this project using HTML, CSS, and Javascript, utilizing NodeJS for the backend, ReactJS for the frontend, and powering it using OpenAI's and SerpAPI's API.
