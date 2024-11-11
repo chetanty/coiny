@@ -1,7 +1,7 @@
 # Welcome to Coiny
 A project by Chetan Tyagi and David Pham
 
-<img src="logo.png" alt="coiny_wp">
+<img src="coin_wp.png" alt="coiny_wp">
 
 # Inspiration
 The project was inspired by the hobby of coin collecting and was made as a solution to the problem of identifying coins, both local and international.
