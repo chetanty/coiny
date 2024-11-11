@@ -18,31 +18,53 @@ const openai = new OpenAI({
 });
 
 // Update ggShopping function to handle async properly and extract shopping_results
-async function ggShopping(q) {
+async function ggShopping(query) {
+  const apiKey = process.env.SERPAPI_KEY;
+  if (!apiKey) {
+    throw new Error("SerpAPI key is missing");
+  }
+
   return new Promise((resolve, reject) => {
     getJson(
       {
-        api_key: "8350eade01527f51a9edf4a0056b4aba30a1dd63fec69d0782a312c18c423d77",
+        api_key: apiKey,
         engine: "google_shopping",
         google_domain: "google.com",
-        q: "1916 canadian penny",
-        shoprs: "CAEYFyoTMTkxNiBjYW5hZGlhbiBwZW5ueTImCBcSHEdpw6E6IHThu6sgdGjhuqVwIMSR4bq_biBjYW8qBBABGAFgAogBAQ",
-        num: "5",
+        q: query,
+        num: "20", // Fetch more results for better filtering
         hl: "en",
         gl: "us",
         no_cache: "true",
-        direct_link: "true"
+        direct_link: "true",
       },
       (json) => {
         if (json && json.shopping_results) {
-          // Limit to the first 5 results manually and extract necessary fields
-          const results = json.shopping_results.slice(0, 5).map(item => ({
+          // Filter out results without a valid price
+          let validResults = json.shopping_results.filter(item => item.extracted_price);
+
+          // Sort results by price in ascending order
+          validResults.sort((a, b) => a.extracted_price - b.extracted_price);
+
+          // Remove duplicates based on the item title
+          const uniqueResultsMap = new Map();
+          validResults.forEach(item => {
+            if (!uniqueResultsMap.has(item.title.toLowerCase())) {
+              uniqueResultsMap.set(item.title.toLowerCase(), item);
+            }
+          });
+
+          // Convert map back to an array and take the top 5 lowest-priced unique items
+          const uniqueResults = Array.from(uniqueResultsMap.values()).slice(0, 5);
+
+          // Map to the final output format
+          const lowestPricedResults = uniqueResults.map(item => ({
             title: item.title,
             price: item.extracted_price,
             link: item.product_link,
-            thumbnail: item.thumbnail
+            thumbnail: item.thumbnail,
           }));
-          resolve(results);
+
+          resolve(lowestPricedResults);
         } else {
           resolve([]);
         }
