@@ -22,4 +22,4 @@ We learned to implement AI tools in our projects, which was not only surreal but
 We will be looking to substantially increase the features of Coiny, expanding it to more monetary items, providing more descriptive information, and upgrading the collection.
 
 # Built With
- firebase, javascript, html5, css3, react, node.js, openai, serpapi, google shopping api
+ firebase, javascript, html5, css3, react, node.js, openai api, serpapi, google shopping api
