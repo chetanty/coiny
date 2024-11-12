@@ -1,5 +1,6 @@
 # Welcome to Coiny
 A project by Chetan Tyagi and David Pham
+
 Winner of [DevelopEd 3.0](https://devpost.com/software/coiny), Wildcard category.
 
 <img src="coiny_wp.png" alt="coiny_wp">
